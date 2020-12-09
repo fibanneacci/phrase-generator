@@ -28,18 +28,18 @@ for (let i = 0; i < clean.length - M; i++) {
   }
   map.get(cur).push(next)
 }
-
-// Get random starting word
 var keys = Array.from(map.keys())
-var markov = [keys[Math.floor(Math.random() * keys.length)]];
 
-// Complete Markov chain, stopping at between one and four words or ending sequence (whichever first)
-for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
-  let cur = markov[markov.length - 1]
-  if (!map.has(cur)) break
-  markov.push(map.get(cur)[Math.floor(Math.random() * map.get(cur).length)])
+function generatePhrase() {
+  // Get random starting word
+  var markov = [keys[Math.floor(Math.random() * keys.length)]];
+
+  // Complete Markov chain, stopping at between one and four words or ending sequence (whichever first)
+  for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
+    let cur = markov[markov.length - 1]
+    if (!map.has(cur)) break
+    markov.push(map.get(cur)[Math.floor(Math.random() * map.get(cur).length)])
+  }
+
+  return markov.join(" ")
 }
-
-// Print phrase!
-var phrase = markov.join(" ")
-console.log(phrase)
