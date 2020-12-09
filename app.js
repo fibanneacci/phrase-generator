@@ -40,4 +40,6 @@ for (let i = 0; i < 3; i++) {
   markov.push(map.get(cur)[Math.floor(Math.random() * map.get(cur).length)])
 }
 
-console.log(markov)
+// Print phrase!
+var phrase = markov.join(" ")
+console.log(phrase)
