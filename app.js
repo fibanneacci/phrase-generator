@@ -1,6 +1,5 @@
 var sample = "Insert text here!"
 var clean = []
-var media = ["code", "words", "art", "audio", "data"]
 
 // Clean input
 var cleanWords = sample.split(" ")
