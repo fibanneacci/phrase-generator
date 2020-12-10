@@ -1,33 +1,35 @@
 var sample = "Insert text here!"
 var clean = []
 
-// Clean input
-var cleanWords = sample.split(" ")
-for (let i = 0; i < cleanWords.length; i++) {
-  cleanWords[i] = cleanWords[i].replace(/\W+/g, "")
-  cleanWords[i] = cleanWords[i].toLowerCase()
-  clean.push(cleanWords[i])
-}
-
-// Create map for Markov, each M word(s) and their possible "next" M words
-var map = new Map()
-var M = 1
-for (let i = 0; i < clean.length - M; i++) {
-  let cur = ""
-  let next = ""
-  for (let j = 0; j < M - 1; j++) {
-    cur += clean[i + j] + " "
-    next += clean[i + j + 1] + " "
+function processInput() {
+  // Clean input
+  var cleanWords = sample.split(" ")
+  for (let i = 0; i < cleanWords.length; i++) {
+    cleanWords[i] = cleanWords[i].replace(/\W+/g, "")
+    cleanWords[i] = cleanWords[i].toLowerCase()
+    clean.push(cleanWords[i])
   }
-  cur += clean[i + M - 1]
-  next += clean[i + M]
 
-  if (!map.has(cur)) {
-    map.set(cur, [])
+  // Create map for Markov, each M word(s) and their possible "next" M words
+  var map = new Map()
+  var M = 1
+  for (let i = 0; i < clean.length - M; i++) {
+    let cur = ""
+    let next = ""
+    for (let j = 0; j < M - 1; j++) {
+      cur += clean[i + j] + " "
+      next += clean[i + j + 1] + " "
+    }
+    cur += clean[i + M - 1]
+    next += clean[i + M]
+
+    if (!map.has(cur)) {
+      map.set(cur, [])
+    }
+    map.get(cur).push(next)
   }
-  map.get(cur).push(next)
+  var keys = Array.from(map.keys())
 }
-var keys = Array.from(map.keys())
 
 function generatePhrase() {
   // Get random starting word
